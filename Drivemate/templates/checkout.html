@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container">
+        <div class="accordion accordion-flush shadow mx-auto" id="checkoutAccordion" style="margin-top: 50px">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="orderDetailsHeader">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#orderDetailsCollapse" aria-expanded="true"
+                            aria-controls="orderDetailsCollapse">
+                        Order Details
+                    </button>
+                </h2>
+                <div id="orderDetailsCollapse" class="accordion-collapse collapse show"
+                     aria-labelledby="orderDetailsHeader" data-bs-parent="#checkoutAccordion">
+                    <div class="accordion-body">
+                        <table class="table">
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% for item in items %}
+
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.category }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.item_price }}</td>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th colspan="4">Total</th>
+                    <td>Rs {{ total_price }}</td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Enter Your Details
+                    </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form id="checkoutForm" method="post" action="{% url 'payment_success' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="flat-number" class="form-label">Address Line 1</label>
+                                <input type="text" class="form-control" id="flat-number" name="flat-number">
+                            </div>
+                            <div class="mb-3">
+                                <label for="block-name" class="form-label">Address Line 2</label>
+                                <input type="text" class="form-control" id="block-name" name="block-name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="zip-code" class="form-label">Zip Code</label>
+                                <input type="text" class="form-control" id="zip-code" name="zip-code">
+                            </div>
+                            <div class="mb-3">
+                                <label for="state" class="form-label">State</label>
+                                <select class="form-select" id="state" name="state">
+                                    <option selected disabled>Select State</option>
+                                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                                    <option value="Assam">Assam</option>
+                                    <option value="Bihar">Bihar</option>
+                                    <option value="Chhattisgarh">Chhattisgarh</option>
+                                    <option value="Goa">Goa</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Haryana">Haryana</option>
+                                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                                    <option value="Jharkhand">Jharkhand</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Manipur">Manipur</option>
+                                    <option value="Meghalaya">Meghalaya</option>
+                                    <option value="Mizoram">Mizoram</option>
+                                    <option value="Nagaland">Nagaland</option>
+                                    <option value="Odisha">Odisha</option>
+                                    <option value="Punjab">Punjab</option>
+                                    <option value="Rajasthan">Rajasthan</option>
+                                    <option value="Sikkim">Sikkim</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Telangana">Telangana</option>
+                                    <option value="Tripura">Tripura</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Uttarakhand">Uttarakhand</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                </select>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="upiOption"
+                                       value="upi">
+                                <label class="form-check-label" for="upiOption">
+                                    Pay to UPI ID
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentOption" id="codOption"
+                                       value="cod">
+                                <label class="form-check-label" for="codOption">
+                                    Cash on Delivery
+                                </label>
+                            </div>
+
+                            <div class="form-group" id="upiIdGroup" style="display:none;">
+                                <label for="upiId">UPI ID:</label>
+                                <h4 id="upiId" name="upiId">tarunkesavan@paytm</h4>
+                            </div>
+                            <button type="submit" class="btn btn-success" id="payNowBtn" style="display:none;">Pay Now
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get the payment option radio buttons
+        const upiOption = document.getElementById('upiOption');
+        const codOption = document.getElementById('codOption');
+
+        // Get the UPI ID form group and the Pay Now button
+        const upiIdGroup = document.getElementById('upiIdGroup');
+        const payNowBtn = document.getElementById('payNowBtn');
+
+        // Add event listeners to the radio buttons
+        upiOption.addEventListener('change', () => {
+            if (upiOption.checked) {
+                // Show the UPI ID form group and Pay Now button
+                upiIdGroup.style.display = 'block';
+                payNowBtn.style.display = 'block';
+            } else {
+                // Hide the UPI ID form group and Pay Now button
+                upiIdGroup.style.display = 'none';
+                payNowBtn.style.display = 'none';
+            }
+        });
+
+        codOption.addEventListener('change', () => {
+            if (codOption.checked) {
+                // Hide the UPI ID form group and Pay Now button
+                upiIdGroup.style.display = 'none';
+                payNowBtn.style.display = 'block';
+            } else {
+                // Hide the UPI ID form group and Pay Now button
+                payNowBtn.style.display = 'none';
+            }
+        });
+
+        document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+            // Check if all required fields are filled in
+            if (!validateForm()) {
+                // If not, prevent the form from being submitted
+                event.preventDefault();
+            }
+        });
+
+        function validateForm() {
+            // Get the values of the required fields
+            const flatNumber = document.getElementById('flat-number').value;
+            const blockName = document.getElementById('block-name').value;
+            const zipCode = document.getElementById('zip-code').value;
+            const state = document.getElementById('state').value;
+            const paymentOption = document.querySelector('input[name="paymentOption"]:checked');
+
+            // Check if any of the required fields are empty
+            if (!flatNumber || !blockName || !zipCode || state === 'Select State' || !paymentOption) {
+                // If any of the fields are empty, return false
+                return false;
+            }
+
+            // All required fields are filled in, return true
+            return true;
+        }
+
+
+        // Get the Pay Now button element
+
+    </script>
+
+
+{% endblock %}

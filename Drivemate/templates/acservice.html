@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% include 'Navbars/ServicesNav.html' %}
+
+
+ <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8 text-center mb-5" style="margin-top: 40px">
+                <h1 class="font-weight-bold">Air Conditioner Services</h1>
+                <p class="lead">At Drivemate, we also offer top-notch AC services for your vehicle. Our team of skilled technicians is equipped with the latest tools and knowledge to diagnose and fix any AC issues your car may have. From routine maintenance to complex repairs, we ensure that your vehicle's air conditioning system is in top-notch condition to keep you comfortable on your drives. With our expertise and attention to detail, you can rest assured that your vehicle's AC system is in good hands at Drivemate.</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            {% for acs in ac_services %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ acs.name }}</h5>
+                        <p class="card-text">{{ acs.description }}</p>
+                        <p class="card-text">Rs {{ acs.price }}</p>
+                        <a href="{% url 'add_to_cart' acs.name %}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

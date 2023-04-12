@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% include 'Navbars/ServicesNav.html' %}
+
+
+ <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8 text-center mb-5" style="margin-top: 40px">
+                <h1 class="font-weight-bold">Detailing Services</h1>
+                <p class="lead">Drivemate offers professional detailing services to help you maintain the pristine condition of your vehicle inside and out. Our skilled detailers use high-quality products and techniques to deep-clean every nook and cranny of your car, from the seats and carpets to the dashboard and exterior. We understand the value of a well-maintained car, and that's why we take great care in delivering a top-notch detailing service that will leave your vehicle looking and feeling like new. With Drivemate, you can trust that your car is in good hands and will receive the attention it deserves.</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            {% for dts in detailing_services %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ dts.name }}</h5>
+                        <p class="card-text">{{ dts.description }}</p>
+                        <p class="card-text">Rs {{ dts.price }}</p>
+                        <a href="{% url 'add_to_cart' dts.name %}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

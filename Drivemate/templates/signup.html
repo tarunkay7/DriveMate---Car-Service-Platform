@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <form class="border p-3 rounded-3 shadow-lg p-3 mb-5 bg-body-tertiary rounded" method="POST">
+        {% csrf_token %}
+           <h2 class="mb-4">Signup</h2>
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

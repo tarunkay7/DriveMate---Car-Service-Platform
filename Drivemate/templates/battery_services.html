@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'Navbars/ServicesNav.html' %}
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8 text-center mb-5" style="margin-top: 40px">
+                <h1 class="font-weight-bold">Battery Cleaning Services</h1>
+                <p class="lead">At Drivemate, we offer a comprehensive battery cleaning service to help extend the lifespan of your vehicle's battery. Our team of experienced technicians uses the latest equipment and techniques to deliver a thorough and effective clean that can help improve the overall performance and efficiency of your vehicle.</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            {% for battery in item.battery_products %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ battery.name }}</h5>
+                        <p class="card-text">{{ battery.description }}</p>
+                        <p class="card-text">Rs {{ battery.price }}</p>
+                        <a href="{% url 'add_to_cart' battery.name %}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

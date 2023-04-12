@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+  <div class="text-center">
+    <h1>{{ message }}</h1>
+    <p>Our <b>DriveMate</b> partner will get in touch with you by {{ delivery_date }}.</p>
+    <p>Thank you for choosing DriveMate!</p>
+    <form action="{% url 'dashboard' %}">
+      <button type="submit" class="btn btn-primary">Go to Dashboard</button>
+    </form>
+    <form action="{% url 'logout' %}">
+      <button type="submit" class="btn btn-danger" style="margin-top: 10px">Logout</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

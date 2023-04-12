@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+<section class="mt-5 " style="height: 100vh;">
+    <div class="d-flex flex-column align-items-center justify-content-center h-100" style="height: 100vh;">
+        <div class="text-center p-4 shadow-lg rounded">
+            <h1 class="mb-3" style="font-size: 6rem;">DriveMate</h1>
+            <p class="mb-5" style="font-size: 2rem;">Empowering your Driving</p>
+        </div>
+        <div class="d-flex justify-content-center mt-4">
+            <a href="{% url 'login_view' %}" class="btn btn-primary me-3">Login</a>
+            <a href="{% url 'signup' %}" class="btn btn-secondary">Signup</a>
+        </div>
+    </div>
+</section>
+<section class="mt-5 " style="height: 100vh;">
+    <div class="container">
+        <h2 class="text-center mb-2">Meet Our Team</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded" style=" box-shadow: red">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <div class="rounded-circle overflow-hidden" style="width: 200px; height: 200px;">
+                                <img src="{% static 'tarun12.jpg' %}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h5 class="card-title">Tarun Kesavan Menon</h5>
+<p class = "card-text">Hello there, my name is Tarun! I may not be a superhero, but I'm a coding crusader on a mission to build the coolest websites and apps around.</p>                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <div class="rounded-circle overflow-hidden" style="width: 200px; height: 200px;">
+                                <img src="{% static 'teja1.jpg' %}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h5 class="card-title">Divya Teja</h5>
+<p class="card=text">Hey, I'm Teja! I may not wear a cape, but I can code like a superhero and make your digital dreams a reality</p>                    </div>
+                </div>
+            </div>
+             <div class="col-md-4 mb-4">
+                <div class="card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <div class="rounded-circle overflow-hidden" style="width: 200px; height: 200px;">
+                                <img src="{% static 'ktarun3.jpg' %}" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+                        <h5 class="card-title">Tarun Karli</h5>
+                        <p class="card-text">Hey, Tarun here! When I'm not busy cracking code, you can usually find me exploring new tech trends or dreaming up my next big project. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{%endblock %}
